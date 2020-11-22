@@ -3,8 +3,8 @@
     <div class="row justify-content-center">
       <div class="col-md-4">
         <div class="card">
+          <div class="alert alert-danger" v-if="message"> {{message}} </div>
           <div class="card-body">
-              <div class="alert alert-danger" v-if="message"> {{message}} </div>
               <h3 class="mt-2 mb-3">Login</h3>
               <form @submit.prevent="login">
                 <div class="form-group">
@@ -27,20 +27,21 @@
 
 <script>
 export default {
-  name : "login",
+  name : "Login",
   data(){
     return{
       email : "",
       password : "",
-      message : "error"
+      message : ""
     }
   },
-  methds : {
+  methods:{
     login(){
-      if(this.email === 'admin@mail.com' && this.password === '123'){
+      if(this.email === 'admin@admin.com' && this.password === '123'){
+        localStorage.setItem('auth',this.email);
         this.$router.push('/profile');
-      } else{
-        this.message = "Email or password is incorrect"
+      } else {
+        this.message = "Email or Password is incorrect";
       }
     }
   }

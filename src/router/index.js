@@ -29,9 +29,6 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
-    // beforeEnter : (from,to,next)=>{
-    //   next();
-    // }
   },
   {
     path: "/login",
@@ -45,8 +42,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to,from,next)=>{
-  console.log('middleware')
+  if(to.path === '/profile' || to.path === '/product'){
+      let auth = localStorage.getItem('auth');
+      if(auth){
+        next();
+      }else{
+        next('/login');
+      }
+  }
   next();
-});
+})
 
 export default router;
