@@ -1,28 +1,52 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home.vue";
+import About from "@/views/About.vue";
+import Profile from "@/views/Profile.vue";
+import ProductHome from "@/views/ProductHome.vue";
+import ProductDetail from "@/views/ProductDetail.vue";
+import Login from "@/views/Login.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
     component: Home
   },
   {
     path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
+    component: About
+  },
+  {
+    path: "/product",
+    component: ProductHome
+  },
+  {
+    path: "/product/:id",
+    component: ProductDetail
+  },
+  {
+    path: "/profile",
+    component: Profile,
+    // beforeEnter : (from,to,next)=>{
+    //   next();
+    // }
+  },
+  {
+    path: "/login",
+    component: Login
+  },
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode : 'history',
+});
+
+router.beforeEach((to,from,next)=>{
+  console.log('middleware')
+  next();
 });
 
 export default router;
